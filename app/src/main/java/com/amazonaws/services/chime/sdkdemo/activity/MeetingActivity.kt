@@ -38,7 +38,8 @@ class MeetingActivity : AppCompatActivity(),
     DeviceManagementFragment.DeviceManagementEventListener,
     MeetingFragment.RosterViewEventListener {
 
-    private val logger = ConsoleLogger(LogLevel.DEBUG)
+//    private val logger = ConsoleLogger(LogLevel.DEBUG)
+    private val logger = ConsoleLogger(LogLevel.VERBOSE)
     private val gson = Gson()
     private val meetingSessionModel: MeetingSessionModel by lazy { ViewModelProvider(this)[MeetingSessionModel::class.java] }
 
