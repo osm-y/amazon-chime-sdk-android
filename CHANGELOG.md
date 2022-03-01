@@ -1,3 +1,45 @@
+## Unreleased
+
+### Fixed
+* Catch and ignore the exception from rendering one video frame and move on to the next. This helps workaround a openGL error on some Android 12 devices at initial rendering phase.
+
+## [0.15.0] - 2022-02-24
+
+### Added
+* Added the meetingStartDurationMs event in ingestionEvents to record the time that elapsed between the start request and the beginning of the meeting.
+* Added priority based downlink policy to control the way how a recipient subscribes to the remote video sources
+
+## [0.14.3] - 2022-02-10
+
+## [0.14.2] - 2022-01-27
+
+### Added
+* Added Maven Support for Android SDK.
+
+### Fixed
+* Fixed out of order logging on `TextureRenderView`.
+* Fixed Maven release process error and skipped 0.14.1
+
+## [0.14.0] - 2021-12-21
+
+### Added
+* Added APIs for Audio Video configuration i.e `AudioVideoConfiguration` to be used during a meeting session.
+* Added support for joining meetings using one of `AudioMode.Mono16K`, `AudioMode.Mono48K` and `AudioMode.Stereo48K` audio modes.
+* **Breaking** The `AudioMode.Stereo48K` will be set as the default audio mode if not explicitly specified when starting the audio session. Earlier, Mono/16KHz audio was the default and the only audio mode supported.
+* [Demo] Added ways to join a meeting using various audio modes.
+
+### Fixed
+* Fixed crash when rgba video frames are sent to DefaultVideoRenderView directly in preview use case.
+
+## [0.13.1] - 2021-11-11
+
+### Fixed
+* [Demo] Fixed demo app crashes when screen share is off and then leave meeting.
+
+### Changed
+* Changed the silence threshold to 0.2 from 0.0 for `DefaultActiveSpeakerPolicy` (Issue #259) to be more consistent with other platform.
+* Expose weights/rates/thresholds to `DefaultActiveSpeakerPolicy` constructor to make builders easier to customize `DefaultActiveSpeakerPolicy`.
+
 ## [0.13.0] - 2021-11-01
 
 ### Added
