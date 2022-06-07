@@ -451,12 +451,17 @@ For more advanced video tile management, take a look at [Video Pagination](https
 
 ```kotlin
 // Use internal camera capture for the local video
- meetingSession.audioVideo.startLocalVideo()
+meetingSession.audioVideo.startLocalVideo()
+
+// Use internal camera capture and set configuration for the video, e.g. maxBitRateKbps
+// This can be called multiple times to dynamically adjust video configuration
+val localVideoConfig = LocalVideoConfiguration(300)
+meetingSession.audioVideo.startLocalVideo(localVideoConfig)
 
 // You can switch camera to change the video input device
 meetingSession.audioVideo.switchCamera()
 
-// Or you can inject custom video source for local video, see custom video guide
+// Or you can inject custom video source for local video, see [custom video guide](https://github.com/aws/amazon-chime-sdk-android/blob/master/guides/custom_video.md)
 ```
 
 #### Use case 16. Stop sharing your video.
@@ -513,6 +518,12 @@ meetingSession.audioVideo.addContentShareObserver(observer)
 val contentShareSource = /* a ContentShareSource object, can use DefaultScreenCaptureSource for screen share or any subclass with custom video source */
 // ContentShareSource object is not managed by SDK, builders need to start, stop, release accordingly
 meetingSession.audioVideo.startContentShare(contentShareSource)
+```
+
+You can set configuration for content share, e.g. maxBitRateKbps, using
+```kotlin
+val contentShareConfig = LocalVideoConfiguration(200)
+meetingSession.audioVideo.startContentShare(contentShareSource, contentShareConfig)
 ```
 
 See [Content Share](https://github.com/aws/amazon-chime-sdk-android/blob/master/guides/content_share.md) for more details.

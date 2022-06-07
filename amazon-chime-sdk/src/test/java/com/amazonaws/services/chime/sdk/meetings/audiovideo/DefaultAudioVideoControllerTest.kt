@@ -11,6 +11,7 @@ import com.amazonaws.services.chime.sdk.meetings.audiovideo.metric.MetricsObserv
 import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.RemoteVideoSource
 import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.VideoSource
 import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.VideoSubscriptionConfiguration
+import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.LocalVideoConfiguration
 import com.amazonaws.services.chime.sdk.meetings.internal.audio.AudioClientController
 import com.amazonaws.services.chime.sdk.meetings.internal.audio.AudioClientObserver
 import com.amazonaws.services.chime.sdk.meetings.internal.metric.ClientMetricsCollector
@@ -59,6 +60,7 @@ class DefaultAudioVideoControllerTest {
         MeetingSessionCredentials(attendeeId, externalUserId, joinToken),
         MeetingSessionURLs(audioFallbackURL, audioHostURL, turnControlURL, signalingURL, ::defaultUrlRewriter)
     )
+    private val localVideoConfig = LocalVideoConfiguration()
 
     @MockK
     private lateinit var audioClientObserver: AudioClientObserver
@@ -87,7 +89,7 @@ class DefaultAudioVideoControllerTest {
     private lateinit var mockTimer: Timer
 
     @MockK
-    private lateinit var videoSource: VideoSource
+    private lateinit var mockVideoSource: VideoSource
 
     @ExperimentalCoroutinesApi
     private val testDispatcher = TestCoroutineDispatcher()
@@ -295,6 +297,24 @@ class DefaultAudioVideoControllerTest {
         audioVideoController.startLocalVideo()
 
         verify { videoClientController.startLocalVideo() }
+    }
+
+    fun `startLocalVideo(config) should call videoClientController startLocalVideo(config)`() {
+        audioVideoController.startLocalVideo(localVideoConfig)
+
+        verify { videoClientController.startLocalVideo(localVideoConfig) }
+    }
+
+    fun `startLocalVideo(source) should call videoClientController startLocalVideo(source)`() {
+        audioVideoController.startLocalVideo(mockVideoSource)
+
+        verify { videoClientController.startLocalVideo(mockVideoSource) }
+    }
+
+    fun `startLocalVideo(source, config) should call videoClientController startLocalVideo(source, config)`() {
+        audioVideoController.startLocalVideo(mockVideoSource, localVideoConfig)
+
+        verify { videoClientController.startLocalVideo(mockVideoSource, localVideoConfig) }
     }
 
     @Test

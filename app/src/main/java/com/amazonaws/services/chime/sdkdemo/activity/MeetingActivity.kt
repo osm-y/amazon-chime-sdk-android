@@ -138,9 +138,10 @@ class MeetingActivity : AppCompatActivity(),
         }
     }
 
-    override fun onJoinMeetingClicked() {
+    override fun onJoinMeetingClicked(maxBitRateKbps: Int) {
         val rosterViewFragment =
             MeetingFragment.newInstance(meetingId, audioVideoConfig, meetingEndpointUrl)
+        rosterViewFragment.arguments?.putInt(MeetingFragment.LOCAL_VIDEO_MAX_BIT_RATE_KBPS, maxBitRateKbps)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.root_layout, rosterViewFragment, "rosterViewFragment")

@@ -57,6 +57,7 @@ import com.amazonaws.services.chime.sdk.meetings.audiovideo.contentshare.Content
 import com.amazonaws.services.chime.sdk.meetings.audiovideo.contentshare.ContentShareStatus
 import com.amazonaws.services.chime.sdk.meetings.audiovideo.metric.MetricsObserver
 import com.amazonaws.services.chime.sdk.meetings.audiovideo.metric.ObservableMetric
+import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.LocalVideoConfiguration
 import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.RemoteVideoSource
 import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.VideoPauseState
 import com.amazonaws.services.chime.sdk.meetings.audiovideo.video.VideoPriority
@@ -218,6 +219,7 @@ class MeetingFragment : Fragment(),
     private lateinit var audioDeviceManager: AudioDeviceManager
 
     companion object {
+        const val LOCAL_VIDEO_MAX_BIT_RATE_KBPS = "LOCAL_VIDEO_MAX_BIT_RATE_KBPS"
         fun newInstance(
             meetingId: String,
             audioVideoConfig: AudioVideoConfiguration,
@@ -1121,25 +1123,27 @@ class MeetingFragment : Fragment(),
 
     private fun startLocalVideo() {
         meetingModel.isLocalVideoStarted = true
+        val localVideoConfig = LocalVideoConfiguration(arguments?.getInt(
+            LOCAL_VIDEO_MAX_BIT_RATE_KBPS) ?: 0)
         if (meetingModel.isUsingCameraCaptureSource) {
             if (meetingModel.isUsingGpuVideoProcessor) {
                 cameraCaptureSource.addVideoSink(gpuVideoProcessor)
-                audioVideo.startLocalVideo(gpuVideoProcessor)
+                audioVideo.startLocalVideo(gpuVideoProcessor, localVideoConfig)
             } else if (meetingModel.isUsingCpuVideoProcessor) {
                 cameraCaptureSource.addVideoSink(cpuVideoProcessor)
-                audioVideo.startLocalVideo(cpuVideoProcessor)
+                audioVideo.startLocalVideo(cpuVideoProcessor, localVideoConfig)
             } else if (meetingModel.isUsingBackgroundBlur) {
                 cameraCaptureSource.addVideoSink(backgroundBlurVideoFrameProcessor)
-                audioVideo.startLocalVideo(backgroundBlurVideoFrameProcessor)
+                audioVideo.startLocalVideo(backgroundBlurVideoFrameProcessor, localVideoConfig)
             } else if (meetingModel.isUsingBackgroundReplacement) {
                 cameraCaptureSource.addVideoSink(backgroundReplacementVideoFrameProcessor)
-                audioVideo.startLocalVideo(backgroundReplacementVideoFrameProcessor)
+                audioVideo.startLocalVideo(backgroundReplacementVideoFrameProcessor, localVideoConfig)
             } else {
-                audioVideo.startLocalVideo(cameraCaptureSource)
+                audioVideo.startLocalVideo(cameraCaptureSource, localVideoConfig)
             }
             cameraCaptureSource.start()
         } else {
-            audioVideo.startLocalVideo()
+            audioVideo.startLocalVideo(localVideoConfig)
         }
         buttonCamera.setImageResource(R.drawable.button_camera_on)
     }
@@ -1411,7 +1415,9 @@ class MeetingFragment : Fragment(),
                 val screenCaptureSourceObserver = object : CaptureSourceObserver {
                     override fun onCaptureStarted() {
                         screenShareManager?.let { source ->
-                            audioVideo.startContentShare(source)
+                            val localVideoConfig = LocalVideoConfiguration(arguments?.getInt(
+                                LOCAL_VIDEO_MAX_BIT_RATE_KBPS) ?: 0)
+                            audioVideo.startContentShare(source, localVideoConfig)
                         }
                     }
 

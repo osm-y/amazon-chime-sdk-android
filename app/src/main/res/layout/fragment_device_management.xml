@@ -24,8 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/device_management_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
@@ -82,6 +82,25 @@
                 android:contentDescription="@string/video_format_spinner"
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp" />
+
+            <TextView
+                android:id="@+id/textViewVideoMaxBitRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:text="@string/video_max_bit_rate_title" />
+
+            <EditText
+                android:id="@+id/editTextVideoMaxBitRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/video_max_bit_rate_edit_text"
+                android:ems="10"
+                android:inputType="numberDecimal" />
 
             <TextView
                 android:id="@+id/textViewVideoPreview"

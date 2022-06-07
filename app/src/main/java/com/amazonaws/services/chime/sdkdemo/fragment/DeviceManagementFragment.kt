@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -60,6 +61,7 @@ class DeviceManagementFragment : Fragment(), DeviceChangeObserver {
     private lateinit var videoDeviceArrayAdapter: ArrayAdapter<MediaDevice>
     private lateinit var videoFormatSpinner: Spinner
     private lateinit var videoFormatArrayAdapter: ArrayAdapter<VideoCaptureFormat>
+    private lateinit var videoMaxBitRateEditText: EditText
 
     private val VIDEO_ASPECT_RATIO_16_9 = 0.5625
 
@@ -84,7 +86,7 @@ class DeviceManagementFragment : Fragment(), DeviceChangeObserver {
     }
 
     interface DeviceManagementEventListener {
-        fun onJoinMeetingClicked()
+        fun onJoinMeetingClicked(maxBitRateKbps: Int)
         fun onCachedDeviceSelected(mediaDevice: MediaDevice)
     }
 
@@ -118,7 +120,8 @@ class DeviceManagementFragment : Fragment(), DeviceChangeObserver {
         view.findViewById<TextView>(R.id.textViewMeetingPreview)?.text = displayedText
 
         view.findViewById<Button>(R.id.buttonJoin)?.setOnClickListener {
-            listener.onJoinMeetingClicked()
+            var maxBitRateKbps = videoMaxBitRateEditText.text.toString().toIntOrNull() ?: 0
+            listener.onJoinMeetingClicked(maxBitRateKbps)
         }
 
         // Note we call isSelected and setSelection before setting onItemSelectedListener
@@ -146,6 +149,8 @@ class DeviceManagementFragment : Fragment(), DeviceChangeObserver {
         videoFormatSpinner.isSelected = false
         videoFormatSpinner.setSelection(0, true)
         videoFormatSpinner.onItemSelectedListener = onVideoFormatSelected
+
+        videoMaxBitRateEditText = view.findViewById(R.id.editTextVideoMaxBitRate)
 
         audioVideo.addDeviceChangeObserver(this)
 

@@ -47,6 +47,8 @@
     <string name="video_device_spinner">Video Device Spinner</string>
     <string name="video_format_title">Video Format</string>
     <string name="video_format_spinner">Video Format Spinner</string>
+    <string name="video_max_bit_rate_title">Video Max Bit Rate in kbps</string>
+    <string name="video_max_bit_rate_edit_text">Video Max Bit Rate EditText</string>
     <string name="video_preview_title">Video Preview</string>
     <string name="video_preview_view">Video Preview View</string>
     <string name="meeting_join">Join</string>
