@@ -89,6 +89,9 @@ class DefaultAudioVideoControllerTest {
     private lateinit var mockTimer: Timer
 
     @MockK
+    private lateinit var videoSource: VideoSource
+
+    @MockK
     private lateinit var mockVideoSource: VideoSource
 
     @ExperimentalCoroutinesApi
