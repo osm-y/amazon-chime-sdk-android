@@ -72,7 +72,7 @@ class DefaultEglRenderer(private val logger: Logger) : EglRenderer {
             eglCore = eglCoreFactory.createEglCore()
             surface?.let {
                 logger.info(TAG, "View already has surface, triggering EGL surface creation")
-                createEglSurface(it)
+//                createEglSurface(it)
             }
         }
     }
