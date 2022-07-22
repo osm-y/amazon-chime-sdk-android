@@ -17,9 +17,9 @@ import com.amazonaws.services.chime.sdk.meetings.internal.utils.VideoLayoutMeasu
 import com.amazonaws.services.chime.sdk.meetings.internal.video.gl.DefaultEglRenderer
 import com.amazonaws.services.chime.sdk.meetings.utils.logger.ConsoleLogger
 import com.amazonaws.services.chime.sdk.meetings.utils.logger.Logger
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+// import kotlinx.coroutines.CoroutineScope
+// import kotlinx.coroutines.Dispatchers
+// import kotlinx.coroutines.launch
 
 /**
  * [TextureRenderView] is an implementation of [EglVideoRenderView] which uses EGL14 and OpenGLES2
@@ -109,19 +109,19 @@ open class TextureRenderView @JvmOverloads constructor(
 
     override fun onVideoFrameReceived(frame: VideoFrame) {
         // Update internal sizing and layout if frame size changes
-        if (rotatedFrameWidth != frame.getRotatedWidth() ||
-                rotatedFrameHeight != frame.getRotatedHeight() ||
-                frameRotation != frame.rotation
-        ) {
-            rotatedFrameWidth = frame.getRotatedWidth()
-            rotatedFrameHeight = frame.getRotatedHeight()
-            frameRotation = frame.rotation
-            logger.info(TAG, "Video frame rotated size changed to ${rotatedFrameWidth}x$rotatedFrameHeight")
-
-            CoroutineScope(Dispatchers.Main).launch {
-                requestLayout()
-            }
-        }
+//        if (rotatedFrameWidth != frame.getRotatedWidth() ||
+//                rotatedFrameHeight != frame.getRotatedHeight() ||
+//                frameRotation != frame.rotation
+//        ) {
+//            rotatedFrameWidth = frame.getRotatedWidth()
+//            rotatedFrameHeight = frame.getRotatedHeight()
+//            frameRotation = frame.rotation
+//            logger.info(TAG, "Video frame rotated size changed to ${rotatedFrameWidth}x$rotatedFrameHeight")
+//
+//            CoroutineScope(Dispatchers.Main).launch {
+//                requestLayout()
+//            }
+//        }
 
         renderer.onVideoFrameReceived(frame)
     }
