@@ -36,37 +36,9 @@ project.afterEvaluate {
     publishing {
         publications {
             publishChimeSDK(MavenPublication) {
-                afterEvaluate {
-                    from components.release
-                }
-                groupId = GROUP
+                groupId = 'jp.co.buildman'
                 version = version
-                artifactId = ARTIFACT_ID_SDK
-
-                pom {
-                    name = POM_SDK_NAME
-                    description = POM_DESCRIPTION_SDK
-                    url = POM_URL
-                    licenses {
-                        license {
-                            name = POM_LICENCE_NAME
-                            url = POM_LICENCE_URL
-                            distribution = POM_LICENCE_DIST
-                        }
-                    }
-                    scm {
-                        url = POM_SCM_URL
-                        connection = POM_SCM_CONNECTION
-                        developerConnection = POM_SCM_DEV_CONNECTION
-                    }
-                    developers {
-                        developer {
-                            id = POM_DEVELOPER_ID
-                            organization = POM_DEVELOPER_ORGANIZATION
-                            organizationUrl = POM_DEVELOPER_ORGANIZATION_URL
-                        }
-                    }
-                }
+                artifactId = 'amazon-chime-test'
             }
 //            publishChimeSDKMedia(MavenPublication) {
 //                groupId = GROUP
@@ -133,17 +105,17 @@ project.afterEvaluate {
 
         }
 
-        repositories {
-            maven {
-                def releasesRepoUrl = "https://aws.oss.sonatype.org/service/local/staging/deploy/maven2/"
-                def snapshotsRepoUrl = "https://aws.oss.sonatype.org/content/repositories/snapshots/"
-                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-                credentials {
-                    username = localProperties.getProperty('SONATYPE_USERNAME')
-                    password = localProperties.getProperty('SONATYPE_PASSWORD')
-                }
-            }
-        }
+//        repositories {
+//            maven {
+//                def releasesRepoUrl = "https://aws.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//                def snapshotsRepoUrl = "https://aws.oss.sonatype.org/content/repositories/snapshots/"
+//                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+//                credentials {
+//                    username = localProperties.getProperty('SONATYPE_USERNAME')
+//                    password = localProperties.getProperty('SONATYPE_PASSWORD')
+//                }
+//            }
+//        }
     }
 }
 
