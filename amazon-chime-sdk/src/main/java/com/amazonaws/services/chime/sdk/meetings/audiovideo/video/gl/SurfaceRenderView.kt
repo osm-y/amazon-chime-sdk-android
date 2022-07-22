@@ -116,7 +116,7 @@ open class SurfaceRenderView @JvmOverloads constructor(
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        updateSurfaceSize()
+        // updateSurfaceSize()
 
         // Create the EGL surface and set it as current
         logger.info(TAG, "Surface created, creating EGL surface with resource")
@@ -138,7 +138,7 @@ open class SurfaceRenderView @JvmOverloads constructor(
         bottom: Int
     ) {
         renderer.aspectRatio = ((right - left) / (bottom - top).toFloat())
-        updateSurfaceSize()
+        // updateSurfaceSize()
     }
 
     override fun onVideoFrameReceived(frame: VideoFrame) {
@@ -154,8 +154,8 @@ open class SurfaceRenderView @JvmOverloads constructor(
             logger.info(TAG, "Video frame rotated size changed to ${rotatedFrameWidth}x$rotatedFrameHeight with rotation $frameRotation")
 
             CoroutineScope(Dispatchers.Main).launch {
-                updateSurfaceSize()
-                requestLayout()
+                // updateSurfaceSize()
+                // requestLayout()
             }
         }
         renderer.onVideoFrameReceived(frame)
