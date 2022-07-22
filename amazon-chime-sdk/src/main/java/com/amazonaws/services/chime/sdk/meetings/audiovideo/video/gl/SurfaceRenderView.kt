@@ -6,7 +6,7 @@
 package com.amazonaws.services.chime.sdk.meetings.audiovideo.video.gl
 
 import android.content.Context
-import android.graphics.Point
+// import android.graphics.Point
 import android.opengl.EGL14
 import android.util.AttributeSet
 import android.view.SurfaceHolder
@@ -19,9 +19,9 @@ import com.amazonaws.services.chime.sdk.meetings.internal.video.gl.DefaultEglRen
 import com.amazonaws.services.chime.sdk.meetings.utils.logger.ConsoleLogger
 import com.amazonaws.services.chime.sdk.meetings.utils.logger.Logger
 import kotlin.math.min
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+// import kotlinx.coroutines.CoroutineScope
+// import kotlinx.coroutines.Dispatchers
+// import kotlinx.coroutines.launch
 
 /**
  * [SurfaceRenderView] is an implementation of [EglVideoRenderView] which uses EGL14 and OpenGLES2
@@ -124,10 +124,10 @@ open class SurfaceRenderView @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthSpec: Int, heightSpec: Int) {
-        val size: Point =
-                videoLayoutMeasure.measure(widthSpec, heightSpec, rotatedFrameWidth, rotatedFrameHeight)
-        logger.debug(TAG, "Setting measured dimensions ${size.x}x${size.y}")
-        setMeasuredDimension(size.x, size.y)
+//        val size: Point =
+//                videoLayoutMeasure.measure(widthSpec, heightSpec, rotatedFrameWidth, rotatedFrameHeight)
+//        logger.debug(TAG, "Setting measured dimensions ${size.x}x${size.y}")
+//        setMeasuredDimension(size.x, size.y)
     }
 
     override fun onLayout(
@@ -137,27 +137,27 @@ open class SurfaceRenderView @JvmOverloads constructor(
         right: Int,
         bottom: Int
     ) {
-        renderer.aspectRatio = ((right - left) / (bottom - top).toFloat())
+//        renderer.aspectRatio = ((right - left) / (bottom - top).toFloat())
         // updateSurfaceSize()
     }
 
     override fun onVideoFrameReceived(frame: VideoFrame) {
         // Update internal sizing and layout if frame size changes
-        if (rotatedFrameWidth != frame.getRotatedWidth() ||
-                rotatedFrameHeight != frame.getRotatedHeight() ||
-                frameRotation != frame.rotation
-        ) {
-            rotatedFrameWidth = frame.getRotatedWidth()
-            rotatedFrameHeight = frame.getRotatedHeight()
-            frameRotation = frame.rotation
-
-            logger.info(TAG, "Video frame rotated size changed to ${rotatedFrameWidth}x$rotatedFrameHeight with rotation $frameRotation")
-
-            CoroutineScope(Dispatchers.Main).launch {
-                // updateSurfaceSize()
-                // requestLayout()
-            }
-        }
+//        if (rotatedFrameWidth != frame.getRotatedWidth() ||
+//                rotatedFrameHeight != frame.getRotatedHeight() ||
+//                frameRotation != frame.rotation
+//        ) {
+//            rotatedFrameWidth = frame.getRotatedWidth()
+//            rotatedFrameHeight = frame.getRotatedHeight()
+//            frameRotation = frame.rotation
+//
+//            logger.info(TAG, "Video frame rotated size changed to ${rotatedFrameWidth}x$rotatedFrameHeight with rotation $frameRotation")
+//
+//            CoroutineScope(Dispatchers.Main).launch {
+//                // updateSurfaceSize()
+//                // requestLayout()
+//            }
+//        }
         renderer.onVideoFrameReceived(frame)
     }
 
