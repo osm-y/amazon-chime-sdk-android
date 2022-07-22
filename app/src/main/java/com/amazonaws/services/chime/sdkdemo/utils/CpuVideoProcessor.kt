@@ -21,7 +21,7 @@ import com.amazonaws.services.chime.sdk.meetings.internal.video.gl.DefaultGlVide
 import com.amazonaws.services.chime.sdk.meetings.internal.video.gl.GlUtil
 import com.amazonaws.services.chime.sdk.meetings.utils.GlTextureFrameBufferHelper
 import com.amazonaws.services.chime.sdk.meetings.utils.logger.Logger
-import com.xodee.client.video.JniUtil
+// import com.xodee.client.video.JniUtil
 
 /**
  * [CpuVideoProcessor] draws frames to RGBA, converts to CPU, and then applies a simple black and white filter before forwarding
@@ -108,32 +108,32 @@ class CpuVideoProcessor(private val logger: Logger, eglCoreFactory: EglCoreFacto
             )
 
             // Read RGBA data to native byte buffer
-            val rgbaData = JniUtil.nativeAllocateByteBuffer(frame.width * frame.height * 4)
-            GLES20.glReadPixels(
-                0,
-                0,
-                frame.getRotatedWidth(),
-                frame.getRotatedHeight(),
-                GLES20.GL_RGBA,
-                GLES20.GL_UNSIGNED_BYTE,
-                rgbaData
-            )
-            GlUtil.checkGlError("glReadPixels")
+//            val rgbaData = JniUtil.nativeAllocateByteBuffer(frame.width * frame.height * 4)
+//            GLES20.glReadPixels(
+//                0,
+//                0,
+//                frame.getRotatedWidth(),
+//                frame.getRotatedHeight(),
+//                GLES20.GL_RGBA,
+//                GLES20.GL_UNSIGNED_BYTE,
+//                rgbaData
+//            )
+//            GlUtil.checkGlError("glReadPixels")
+//
+//            val rgbaBuffer =
+//                VideoFrameRGBABuffer(
+//                    frame.getRotatedWidth(),
+//                    frame.getRotatedHeight(),
+//                    rgbaData, frame.getRotatedWidth() * 4,
+//                    Runnable { JniUtil.nativeFreeByteBuffer(rgbaData) })
+//
+//            convertToBlackAndWhite(rgbaBuffer)
 
-            val rgbaBuffer =
-                VideoFrameRGBABuffer(
-                    frame.getRotatedWidth(),
-                    frame.getRotatedHeight(),
-                    rgbaData, frame.getRotatedWidth() * 4,
-                    Runnable { JniUtil.nativeFreeByteBuffer(rgbaData) })
-
-            convertToBlackAndWhite(rgbaBuffer)
-
-            val processedFrame = VideoFrame(frame.timestampNs, rgbaBuffer)
-            frame.release()
-
-            sinks.forEach { it.onVideoFrameReceived(processedFrame) }
-            processedFrame.release()
+//            val processedFrame = VideoFrame(frame.timestampNs, rgbaBuffer)
+//            frame.release()
+//
+//            sinks.forEach { it.onVideoFrameReceived(processedFrame) }
+//            processedFrame.release()
         }
     }
 
