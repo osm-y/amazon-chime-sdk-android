@@ -6,7 +6,7 @@
 package com.amazonaws.services.chime.sdk.meetings.audiovideo.video.gl
 
 import android.content.Context
-// import android.graphics.Point
+import android.graphics.Point
 import android.opengl.EGL14
 import android.util.AttributeSet
 import android.view.SurfaceHolder
@@ -124,10 +124,10 @@ open class SurfaceRenderView @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthSpec: Int, heightSpec: Int) {
-//        val size: Point =
-//                videoLayoutMeasure.measure(widthSpec, heightSpec, rotatedFrameWidth, rotatedFrameHeight)
-//        logger.debug(TAG, "Setting measured dimensions ${size.x}x${size.y}")
-//        setMeasuredDimension(size.x, size.y)
+        val size: Point =
+                videoLayoutMeasure.measure(widthSpec, heightSpec, rotatedFrameWidth, rotatedFrameHeight)
+        logger.debug(TAG, "Setting measured dimensions ${size.x}x${size.y}")
+        setMeasuredDimension(size.x, size.y)
     }
 
     override fun onLayout(
