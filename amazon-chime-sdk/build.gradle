@@ -157,3 +157,17 @@ dependencies {
     androidTestImplementation 'io.mockk:mockk-android:1.10.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.1.0'
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'jp.co.buildman'
+                artifactId = 'amazon-chime-test'
+                version = '0.19.8'
+            }
+        }
+    }
+}
